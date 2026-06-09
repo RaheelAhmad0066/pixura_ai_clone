@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:pixura_ai/core/theme/app_colors.dart';
 
@@ -9,8 +8,8 @@ class ToastUtils {
   }) {
     toast(
       message,
-      bgColor: AppColors.success,
-      textColor: Colors.white,
+      bgColor: AppColors.shade800,
+      textColor: AppColors.shade100,
       length: Toast.LENGTH_LONG,
       gravity: gravity,
     );
@@ -22,8 +21,8 @@ class ToastUtils {
   }) {
     toast(
       message,
-      bgColor: AppColors.requiredRedColor,
-      textColor: Colors.white,
+      bgColor: AppColors.rose,
+      textColor: AppColors.shade100,
       length: Toast.LENGTH_LONG,
       gravity: gravity,
     );
@@ -35,8 +34,8 @@ class ToastUtils {
   }) {
     toast(
       message,
-      bgColor: AppColors.orangeAccent,
-      textColor: Colors.white,
+      bgColor: AppColors.mustard,
+      textColor: AppColors.shade100,
       length: Toast.LENGTH_LONG,
       gravity: gravity,
     );

@@ -63,7 +63,7 @@ class CustomButton extends StatelessWidget {
           : (isDisabled)
           // : (isDisabled || isLoading)
           ? Color(0xff121212).withValues(alpha: 0.5)
-          : buttonColor ?? AppColors.blackColor,
+          : buttonColor ?? AppColors.shade900,
       elevation: 0.0,
       onPressed: (isDisabled)
           // (isDisabled || isLoading)
@@ -79,7 +79,7 @@ class CustomButton extends StatelessWidget {
                     child: CircularProgressIndicator(
                       strokeWidth: 2,
                       valueColor: AlwaysStoppedAnimation<Color>(
-                        loaderColor ?? AppColors.whiteColor,
+                        loaderColor ?? AppColors.shade100,
                       ),
                     ),
                   )
@@ -113,8 +113,8 @@ class CustomButton extends StatelessWidget {
                         style: Theme.of(context).textTheme.displaySmall!
                             .copyWith(
                               color: isDisabled && !isOutlineButton
-                                  ? AppColors.whiteColor.withValues(alpha: 0.5)
-                                  : textColor ?? AppColors.whiteColor,
+                                  ? AppColors.shade100.withValues(alpha: 0.5)
+                                  : textColor ?? AppColors.shade100,
                               fontSize: textFontSize ?? 14.sp,
                             ),
                       ),

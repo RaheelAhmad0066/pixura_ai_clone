@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pixura_ai/core/theme/app_colors.dart';
 
 @immutable
 class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
@@ -152,7 +153,8 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
       grey: grey ?? this.grey,
       lightGrey: lightGrey ?? this.lightGrey,
       backgroundColor: backgroundColor ?? this.backgroundColor,
-      componentBackgroundColor: componentBackgroundColor ?? this.componentBackgroundColor,
+      componentBackgroundColor:
+          componentBackgroundColor ?? this.componentBackgroundColor,
       secondaryBlack: secondaryBlack ?? this.secondaryBlack,
       primaryTextColor: primaryTextColor ?? this.primaryTextColor,
       secondaryTextColor: secondaryTextColor ?? this.secondaryTextColor,
@@ -203,60 +205,130 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension> {
       grey: Color.lerp(grey, other.grey, t)!,
       lightGrey: Color.lerp(lightGrey, other.lightGrey, t)!,
       backgroundColor: Color.lerp(backgroundColor, other.backgroundColor, t)!,
-      componentBackgroundColor: Color.lerp(componentBackgroundColor, other.componentBackgroundColor, t)!,
+      componentBackgroundColor: Color.lerp(
+        componentBackgroundColor,
+        other.componentBackgroundColor,
+        t,
+      )!,
       secondaryBlack: Color.lerp(secondaryBlack, other.secondaryBlack, t)!,
-      primaryTextColor:
-          Color.lerp(primaryTextColor, other.primaryTextColor, t)!,
-      secondaryTextColor:
-          Color.lerp(secondaryTextColor, other.secondaryTextColor, t)!,
+      primaryTextColor: Color.lerp(
+        primaryTextColor,
+        other.primaryTextColor,
+        t,
+      )!,
+      secondaryTextColor: Color.lerp(
+        secondaryTextColor,
+        other.secondaryTextColor,
+        t,
+      )!,
       blue300: Color.lerp(blue300, other.blue300, t)!,
       blue400: Color.lerp(blue400, other.blue400, t)!,
-      switchActiveTrack:
-          Color.lerp(switchActiveTrack, other.switchActiveTrack, t)!,
-      switchInactiveTrack:
-          Color.lerp(switchInactiveTrack, other.switchInactiveTrack, t)!,
+      switchActiveTrack: Color.lerp(
+        switchActiveTrack,
+        other.switchActiveTrack,
+        t,
+      )!,
+      switchInactiveTrack: Color.lerp(
+        switchInactiveTrack,
+        other.switchInactiveTrack,
+        t,
+      )!,
       switchThumb: Color.lerp(switchThumb, other.switchThumb, t)!,
-      selectionHighlight:
-          Color.lerp(selectionHighlight, other.selectionHighlight, t)!,
-      selectionHighlightText:
-          Color.lerp(selectionHighlightText, other.selectionHighlightText, t)!,
-      successBackground:
-          Color.lerp(successBackground, other.successBackground, t)!,
-      successForeground:
-          Color.lerp(successForeground, other.successForeground, t)!,
+      selectionHighlight: Color.lerp(
+        selectionHighlight,
+        other.selectionHighlight,
+        t,
+      )!,
+      selectionHighlightText: Color.lerp(
+        selectionHighlightText,
+        other.selectionHighlightText,
+        t,
+      )!,
+      successBackground: Color.lerp(
+        successBackground,
+        other.successBackground,
+        t,
+      )!,
+      successForeground: Color.lerp(
+        successForeground,
+        other.successForeground,
+        t,
+      )!,
       successBorder: Color.lerp(successBorder, other.successBorder, t)!,
-      warningBackground:
-          Color.lerp(warningBackground, other.warningBackground, t)!,
-      warningForeground:
-          Color.lerp(warningForeground, other.warningForeground, t)!,
+      warningBackground: Color.lerp(
+        warningBackground,
+        other.warningBackground,
+        t,
+      )!,
+      warningForeground: Color.lerp(
+        warningForeground,
+        other.warningForeground,
+        t,
+      )!,
       infoBackground: Color.lerp(infoBackground, other.infoBackground, t)!,
       infoBorder: Color.lerp(infoBorder, other.infoBorder, t)!,
       infoColor: Color.lerp(infoColor, other.infoColor, t)!,
-      iconBackgroundYellow:
-          Color.lerp(iconBackgroundYellow, other.iconBackgroundYellow, t)!,
-      statusScheduledColor:
-          Color.lerp(statusScheduledColor, other.statusScheduledColor, t)!,
-      statusScheduledBg:
-          Color.lerp(statusScheduledBg, other.statusScheduledBg, t)!,
-      statusInProgressColor:
-          Color.lerp(statusInProgressColor, other.statusInProgressColor, t)!,
-      statusInProgressBg:
-          Color.lerp(statusInProgressBg, other.statusInProgressBg, t)!,
-      statusCompletedColor:
-          Color.lerp(statusCompletedColor, other.statusCompletedColor, t)!,
-      statusCompletedBg:
-          Color.lerp(statusCompletedBg, other.statusCompletedBg, t)!,
-      statusDelayedColor:
-          Color.lerp(statusDelayedColor, other.statusDelayedColor, t)!,
+      iconBackgroundYellow: Color.lerp(
+        iconBackgroundYellow,
+        other.iconBackgroundYellow,
+        t,
+      )!,
+      statusScheduledColor: Color.lerp(
+        statusScheduledColor,
+        other.statusScheduledColor,
+        t,
+      )!,
+      statusScheduledBg: Color.lerp(
+        statusScheduledBg,
+        other.statusScheduledBg,
+        t,
+      )!,
+      statusInProgressColor: Color.lerp(
+        statusInProgressColor,
+        other.statusInProgressColor,
+        t,
+      )!,
+      statusInProgressBg: Color.lerp(
+        statusInProgressBg,
+        other.statusInProgressBg,
+        t,
+      )!,
+      statusCompletedColor: Color.lerp(
+        statusCompletedColor,
+        other.statusCompletedColor,
+        t,
+      )!,
+      statusCompletedBg: Color.lerp(
+        statusCompletedBg,
+        other.statusCompletedBg,
+        t,
+      )!,
+      statusDelayedColor: Color.lerp(
+        statusDelayedColor,
+        other.statusDelayedColor,
+        t,
+      )!,
       statusDelayedBg: Color.lerp(statusDelayedBg, other.statusDelayedBg, t)!,
-      statusCancelledColor:
-          Color.lerp(statusCancelledColor, other.statusCancelledColor, t)!,
-      statusCancelledBg:
-          Color.lerp(statusCancelledBg, other.statusCancelledBg, t)!,
-      gradientOrangeStart:
-          Color.lerp(gradientOrangeStart, other.gradientOrangeStart, t)!,
-      gradientOrangeEnd:
-          Color.lerp(gradientOrangeEnd, other.gradientOrangeEnd, t)!,
+      statusCancelledColor: Color.lerp(
+        statusCancelledColor,
+        other.statusCancelledColor,
+        t,
+      )!,
+      statusCancelledBg: Color.lerp(
+        statusCancelledBg,
+        other.statusCancelledBg,
+        t,
+      )!,
+      gradientOrangeStart: Color.lerp(
+        gradientOrangeStart,
+        other.gradientOrangeStart,
+        t,
+      )!,
+      gradientOrangeEnd: Color.lerp(
+        gradientOrangeEnd,
+        other.gradientOrangeEnd,
+        t,
+      )!,
       fieldLogBrown: Color.lerp(fieldLogBrown, other.fieldLogBrown, t)!,
       jobStatusOrange: Color.lerp(jobStatusOrange, other.jobStatusOrange, t)!,
     );
@@ -267,45 +339,45 @@ extension AppThemeExtension on BuildContext {
   AppColorsExtension get appColors =>
       Theme.of(this).extension<AppColorsExtension>() ??
       const AppColorsExtension(
-        greySolid: Color(0XFF4A5565),
-        grey200: Color(0xFF18181F),
-        grey100: Color(0xFFF6F8FA),
-        grey: Color(0xFF4B5563),
-        lightGrey: Color(0xFFF3F4F6),
-        backgroundColor: Color(0xFFf6f8fa),
-        componentBackgroundColor: Colors.white,
-        secondaryBlack: Color(0XFF121212),
-        primaryTextColor: Color(0XFF484F69),
-        secondaryTextColor: Color(0XFF808080),
-        blue300: Color(0XFF314158),
-        blue400: Color(0XFF45556C),
-        switchActiveTrack: Color(0xFFFFC107),
-        switchInactiveTrack: Color(0xFFE5E5EA),
-        switchThumb: Colors.white,
-        selectionHighlight: Color(0xFFF9A825),
-        selectionHighlightText: Colors.white,
-        successBackground: Color(0xFFF0FDF4),
-        successForeground: Color(0xFF00C950),
-        successBorder: Color(0xFFB9F8CF),
-        warningBackground: Color(0xFFFFFBED),
-        warningForeground: Color(0xFFFEF3C7),
-        infoBackground: Color(0xFFEFF6FF),
-        infoBorder: Color(0xFFBEDBFF),
-        infoColor: Color(0xFF1565C0),
-        iconBackgroundYellow: Color(0xFFFFF9E6),
-        statusScheduledColor: Color(0xFFF9A825),
-        statusScheduledBg: Color(0xFFFFF8E1),
-        statusInProgressColor: Color(0xFF1565C0),
-        statusInProgressBg: Color(0xFFE3F2FD),
-        statusCompletedColor: Color(0xFF00C950),
-        statusCompletedBg: Color(0xFFF0FDF4),
-        statusDelayedColor: Color(0xFFD32F2F),
-        statusDelayedBg: Color(0xFFFFEBEE),
-        statusCancelledColor: Color(0xFF757575),
-        statusCancelledBg: Color(0xFFF5F5F5),
+        greySolid: AppColors.shade600,
+        grey200: AppColors.shade200,
+        grey100: AppColors.shade100,
+        grey: AppColors.shade500,
+        lightGrey: AppColors.shade300,
+        backgroundColor: AppColors.foggy,
+        componentBackgroundColor: AppColors.shade100,
+        secondaryBlack: AppColors.shade800,
+        primaryTextColor: AppColors.shade900,
+        secondaryTextColor: AppColors.shade600,
+        blue300: AppColors.skies,
+        blue400: AppColors.cyan,
+        switchActiveTrack: AppColors.purple,
+        switchInactiveTrack: AppColors.shade400,
+        switchThumb: AppColors.shade100,
+        selectionHighlight: AppColors.lemon,
+        selectionHighlightText: AppColors.shade900,
+        successBackground: AppColors.lightGreen,
+        successForeground: Color(0xFF10B981),
+        successBorder: AppColors.mint,
+        warningBackground: AppColors.mustard,
+        warningForeground: Color(0xFFF59E0B),
+        infoBackground: AppColors.cyan,
+        infoBorder: AppColors.skies,
+        infoColor: Color(0xFF3B82F6),
+        iconBackgroundYellow: AppColors.olive,
+        statusScheduledColor: Color(0xFFF59E0B),
+        statusScheduledBg: AppColors.mustard,
+        statusInProgressColor: Color(0xFF3B82F6),
+        statusInProgressBg: AppColors.cyan,
+        statusCompletedColor: Color(0xFF10B981),
+        statusCompletedBg: AppColors.lightGreen,
+        statusDelayedColor: Color(0xFFEF4444),
+        statusDelayedBg: AppColors.rose,
+        statusCancelledColor: AppColors.shade600,
+        statusCancelledBg: AppColors.shade200,
         gradientOrangeStart: Color(0xFFFE9A00),
         gradientOrangeEnd: Color(0xFFFF6900),
-        fieldLogBrown: Color(0xFF5D4037),
-        jobStatusOrange: Color(0xFFE65100),
+        fieldLogBrown: Color(0xFF92400E),
+        jobStatusOrange: Color(0xFFF97316),
       );
 }

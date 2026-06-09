@@ -1,4 +1,3 @@
-fixes2import 'package:pixura_ai/core/theme/app_colors.dart';
 import 'package:pixura_ai/core/theme/app_theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show TextInputFormatter;
@@ -89,7 +88,7 @@ class CustomTextField extends StatelessWidget {
 
     final OutlineInputBorder activeBorder = OutlineInputBorder(
       borderSide: BorderSide(
-        color: AppColors.orangeAccent, // Amber/yellow focus color
+        color: context.appColors.selectionHighlight, // Amber/yellow focus color
         width: 1.5,
       ),
       borderRadius: BorderRadius.circular(radius),
@@ -97,14 +96,14 @@ class CustomTextField extends StatelessWidget {
 
     final OutlineInputBorder errorBorder = OutlineInputBorder(
       borderSide: BorderSide(
-        color: AppColors.textFieldValidationRedColor,
+        color: context.appColors.statusDelayedColor,
         width: 1.0,
       ),
       borderRadius: BorderRadius.circular(radius),
     );
 
     final TextStyle errorStyle = Theme.of(context).textTheme.titleSmall!
-        .copyWith(color: AppColors.textFieldValidationRedColor, height: 1.35);
+        .copyWith(color: context.appColors.statusDelayedColor, height: 1.35);
 
     final TextStyle style = Theme.of(context).textTheme.titleMedium!.copyWith(
       color: isEnabled ?? true
@@ -144,7 +143,9 @@ class CustomTextField extends StatelessWidget {
                   ? [
                       TextSpan(
                         text: '*',
-                        style: TextStyle(color: AppColors.requiredRedColor),
+                        style: TextStyle(
+                          color: context.appColors.statusDelayedColor,
+                        ),
                       ),
                     ]
                   : null,

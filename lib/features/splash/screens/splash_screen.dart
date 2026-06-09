@@ -2,6 +2,7 @@
 import 'package:pixura_ai/core/constants/app_string.dart';
 import 'package:pixura_ai/core/constants/assets_constants.dart';
 import 'package:pixura_ai/core/services/secure_storage_service.dart';
+import 'package:svg_flutter/svg.dart';
 import 'package:pixura_ai/core/utils/debug_point.dart';
 import 'package:pixura_ai/features/auth/controller/auth_provider.dart';
 import 'package:pixura_ai/features/auth/screen/login_screen.dart';
@@ -208,8 +209,8 @@ class _SplashScreenState extends State<SplashScreen>
               position: _logoAnimation,
               child: Hero(
                 tag: 'logo',
-                child: Image(
-                  image: AssetImage(AssetsConstants.heartstyle),
+                child: SvgPicture.asset(
+                  AssetsConstants.heartstyle,
                   height: 100.h,
                   width: 150.w,
                 ),

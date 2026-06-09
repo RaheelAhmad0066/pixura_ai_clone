@@ -52,7 +52,7 @@ class ResetPasswordSuccess extends StatelessWidget {
                 ),
                 AppSizedBoxes.largeSizedBox,
                 CustomButton(
-                  buttonColor: AppColors.primaryColor,
+                  buttonColor: AppColors.purple,
                   text: 'Go to Login',
                   onPressed: () {
                     LoginScreen().launch(

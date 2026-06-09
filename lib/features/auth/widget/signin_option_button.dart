@@ -25,7 +25,7 @@ class SignInOptionButton extends StatelessWidget {
         width: double.infinity,
         height: 70.sp,
         decoration: BoxDecoration(
-          color: AppColors.whiteColor,
+          color: AppColors.shade100,
           borderRadius: BorderRadius.circular(16.r),
         ),
         child: Padding(
@@ -37,7 +37,7 @@ class SignInOptionButton extends StatelessWidget {
                 height: 45.sp,
                 padding: EdgeInsets.all(10.w),
                 decoration: BoxDecoration(
-                  color: AppColors.lightPurple,
+                  color: AppColors.lavender,
                   borderRadius: BorderRadius.circular(12.r),
                 ),
                 child: SvgPicture.asset(icon),
@@ -65,7 +65,7 @@ class SignInOptionButton extends StatelessWidget {
               Spacer(),
               Icon(
                 Iconsax.arrow_right_1,
-                color: AppColors.grey600,
+                color: AppColors.shade600,
                 size: 20.sp,
               ),
             ],

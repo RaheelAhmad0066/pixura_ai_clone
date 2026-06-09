@@ -199,7 +199,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                                 color: Theme.of(context).colorScheme.surface,
                                 borderRadius: BorderRadius.circular(10.r),
                                 border: Border.all(
-                                  color: AppColors.primaryColor,
+                                  color: AppColors.purple,
                                   width: 1.5,
                                 ),
                               ),
