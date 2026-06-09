@@ -108,8 +108,8 @@ class _LoginScreenState extends State<LoginScreen>
                       // Logo stays fixed (Hero animation)
                       Hero(
                         tag: 'logo',
-                        child: Image.asset(
-                          AssetsConstants.appLogo,
+                        child: SvgPicture.asset(
+                          AssetsConstants.heartstyle,
                           width: 80.w,
                         ),
                       ),

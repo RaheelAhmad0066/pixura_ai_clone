@@ -1,20 +1,74 @@
 class AssetsConstants {
-  // Logos
-  static const appLogo = "assets/icons/app_icon.png";
-
-  // Icons
-  static const arrowBack = "assets/icons/arrow_back.svg";
-  static const document = "assets/icons/document.svg";
-
-  // Images
-  static const aiGenImage = "assets/images/ai_gen_image.png";
-
-  // Social Media Icons
-  static const socialX = "assets/social_icons/x.png";
-  static const socialInstagram = "assets/social_icons/instagram.png";
-  static const socialFacebook = "assets/social_icons/facebook.png";
-  static const socialLinkedIn = "assets/social_icons/linkedin.png";
   static const socialYoutube = "assets/social_icons/youtube.png";
   static const socialTikTok = "assets/social_icons/tiktok.png";
   static const socialPinterest = "assets/social_icons/pinterest.png";
+
+  // Root Assets
+  static const String eyeDropper = 'assets/Eye Dropper.svg';
+  static const String subtract = 'assets/Subtract.svg';
+  static const String vector = 'assets/Vector.svg';
+  static const String add = 'assets/add.svg';
+  static const String armsOpen = 'assets/arms-open.svg';
+  static const String brush = 'assets/brush.svg';
+  static const String cancel = 'assets/cancel.svg';
+  static const String confuesd = 'assets/confuesd.svg';
+  static const String connected = 'assets/connected.svg';
+  static const String creditCard = 'assets/credit-card.svg';
+  static const String dotsContainer = 'assets/dots-container.svg';
+  static const String doubt = 'assets/doubt.svg';
+  static const String downArrow = 'assets/down-arrrow.svg';
+  static const String edit = 'assets/edit.svg';
+  static const String edit1 = 'assets/edit1.svg';
+  static const String gallery = 'assets/gallery.svg';
+  static const String grid = 'assets/grid.svg';
+  static const String headphone = 'assets/headphone.svg';
+  static const String heart = 'assets/heart.svg';
+  static const String heartstyle = 'assets/heartstyle.svg';
+  static const String illustration1 = 'assets/illustration1.jpg';
+  static const String illustration10 = 'assets/illustration10.jpg';
+  static const String illustration11 = 'assets/illustration11.jpg';
+  static const String illustration12 = 'assets/illustration12.jpg';
+  static const String illustration13 = 'assets/illustration13.jpg';
+  static const String illustration14 = 'assets/illustration14.jpg';
+  static const String illustration16 = 'assets/illustration16.jpg';
+  static const String illustration18 = 'assets/illustration18.jpg';
+  static const String illustration19 = 'assets/illustration19.jpg';
+  static const String illustration2 = 'assets/illustration2.jpg';
+  static const String illustration20 = 'assets/illustration20.jpg';
+  static const String illustration3 = 'assets/illustration3.jpg';
+  static const String illustration4 = 'assets/illustration4.jpg';
+  static const String illustration5 = 'assets/illustration5.jpg';
+  static const String illustration6 = 'assets/illustration6.jpg';
+  static const String illustration7 = 'assets/illustration7.jpg';
+  static const String illustration8 = 'assets/illustration8.jpg';
+  static const String illustration9 = 'assets/illustration9.jpg';
+  static const String lanscape = 'assets/lanscape.svg';
+  static const String leftArrow = 'assets/left-arrow.svg';
+  static const String license = 'assets/license.svg';
+  static const String lightBubble = 'assets/light-bubble.svg';
+  static const String lock = 'assets/lock.svg';
+  static const String logout = 'assets/logout.svg';
+  static const String mail = 'assets/mail.svg';
+  static const String moon = 'assets/moon.svg';
+  static const String notification = 'assets/notification.svg';
+  static const String onboarding1 = 'assets/onboarding1.jpg';
+  static const String onboarding2 = 'assets/onboarding2.jpg';
+  static const String onboarding3 = 'assets/onboarding3.jpg';
+  static const String paymentMethods = 'assets/payment-methods.svg';
+  static const String people = 'assets/people.svg';
+  static const String pleased = 'assets/pleased.svg';
+  static const String portrait = 'assets/portrait.svg';
+  static const String privacy = 'assets/privacy.svg';
+  static const String profile = 'assets/profile.svg';
+  static const String send = 'assets/send.svg';
+  static const String settings = 'assets/settings.svg';
+  static const String shield = 'assets/shield.svg';
+  static const String socialMedia = 'assets/social media.svg';
+  static const String stack = 'assets/stack.svg';
+  static const String styleSvg = 'assets/style.svg';
+  static const String sun = 'assets/sun.svg';
+  static const String visa = 'assets/visa.svg.svg';
+  static const String wip = 'assets/wip.svg';
+  static const String zoomOutOutline = 'assets/zoom-out-outline.svg';
+  static const String zoomout = 'assets/zoomout.svg';
 }

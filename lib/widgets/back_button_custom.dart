@@ -34,7 +34,7 @@ class BackButtonCustom extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.r),
           ),
           child: SvgPicture.asset(
-            AssetsConstants.arrowBack,
+            AssetsConstants.leftArrow,
             colorFilter: ColorFilter.mode(
               context.appColors.secondaryBlack,
               BlendMode.srcIn,

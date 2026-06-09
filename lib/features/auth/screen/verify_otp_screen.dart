@@ -15,6 +15,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:clerk_auth/clerk_auth.dart';
+import 'package:svg_flutter/svg.dart';
 
 class VerifyOtpScreen extends StatefulWidget {
   final String email;
@@ -124,7 +125,10 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                           ),
                           SizedBox(height: 0.124.sh),
 
-                          Image.asset(AssetsConstants.appLogo, width: 80.w),
+                          SvgPicture.asset(
+                            AssetsConstants.heartstyle,
+                            width: 80.w,
+                          ),
                           AppSizedBoxes.normalSizedBox,
 
                           // Title

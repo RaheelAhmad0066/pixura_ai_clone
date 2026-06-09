@@ -113,8 +113,8 @@ class _SignupScreenState extends State<SignupScreen>
                     children: [
                       Hero(
                         tag: 'logo',
-                        child: Image.asset(
-                          AssetsConstants.appLogo,
+                        child: SvgPicture.asset(
+                          AssetsConstants.heartstyle,
                           width: 80.w,
                         ),
                       ),

@@ -6,6 +6,7 @@ import 'package:pixura_ai/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:svg_flutter/svg.dart';
 
 class ResetPasswordSuccess extends StatelessWidget {
   const ResetPasswordSuccess({super.key});
@@ -20,7 +21,7 @@ class ResetPasswordSuccess extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(AssetsConstants.appLogo, width: 80.w),
+                SvgPicture.asset(AssetsConstants.heartstyle, width: 80.w),
                 AppSizedBoxes.normalSizedBox,
                 Text(
                   'Password Reset Successful',

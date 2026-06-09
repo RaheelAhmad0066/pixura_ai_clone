@@ -108,7 +108,7 @@ class ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                       Hero(
                         tag: 'logo',
                         child: Image.asset(
-                          AssetsConstants.appLogo,
+                          AssetsConstants.heartstyle,
                           width: 80.w,
                         ),
                       ),

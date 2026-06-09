@@ -1,4 +1,4 @@
-import 'package:pixura_ai/core/theme/app_colors.dart';
+fixes2import 'package:pixura_ai/core/theme/app_colors.dart';
 import 'package:pixura_ai/core/theme/app_theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show TextInputFormatter;
@@ -33,6 +33,7 @@ class CustomTextField extends StatelessWidget {
   final Color? borderColor;
   final TextInputAction? textInputAction;
   final String? counterText;
+
   const CustomTextField({
     super.key,
     this.title,
@@ -64,24 +65,47 @@ class CustomTextField extends StatelessWidget {
     this.textInputAction,
     this.counterText,
   });
+
   @override
   Widget build(BuildContext context) {
-    /// Border
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+
+    /// Determine fill colors based on theme
+    final Color defaultFillColor = isDark
+        ? const Color(0xFF1E1E1E) // Dark grey fill for dark mode
+        : const Color(0xFFF3F4F6); // Light grey fill for light mode
+
+    /// Border radius - pill shaped
+    final double radius = textfieldBorderRadius ?? 30.r;
+
+    /// Border definition
     final OutlineInputBorder border = OutlineInputBorder(
-      borderSide: BorderSide(color: borderColor ?? context.appColors.grey),
-      borderRadius: BorderRadius.circular(textfieldBorderRadius ?? 10.r),
+      borderSide: BorderSide(
+        color: borderColor ?? Colors.transparent,
+        width: 1.0,
+      ),
+      borderRadius: BorderRadius.circular(radius),
     );
+
     final OutlineInputBorder activeBorder = OutlineInputBorder(
-      borderSide: BorderSide(color: Theme.of(context).primaryColor),
-      borderRadius: BorderRadius.circular(textfieldBorderRadius ?? 10.r),
+      borderSide: BorderSide(
+        color: AppColors.orangeAccent, // Amber/yellow focus color
+        width: 1.5,
+      ),
+      borderRadius: BorderRadius.circular(radius),
     );
+
     final OutlineInputBorder errorBorder = OutlineInputBorder(
-      borderSide: BorderSide(color: AppColors.textFieldValidationRedColor),
-      borderRadius: BorderRadius.circular(textfieldBorderRadius ?? 10.r),
+      borderSide: BorderSide(
+        color: AppColors.textFieldValidationRedColor,
+        width: 1.0,
+      ),
+      borderRadius: BorderRadius.circular(radius),
     );
 
     final TextStyle errorStyle = Theme.of(context).textTheme.titleSmall!
         .copyWith(color: AppColors.textFieldValidationRedColor, height: 1.35);
+
     final TextStyle style = Theme.of(context).textTheme.titleMedium!.copyWith(
       color: isEnabled ?? true
           ? Theme.of(context).textTheme.titleMedium?.color
@@ -93,11 +117,17 @@ class CustomTextField extends StatelessWidget {
     ).textTheme.titleMedium!.copyWith(color: context.appColors.grey);
 
     final EdgeInsets contentPadding = EdgeInsets.symmetric(
-      horizontal: 16.w,
-      vertical: 13.h,
+      horizontal: 20.w,
+      vertical: 14.h,
     );
 
-    /// TextField Widget
+    /// Determine if filled mode is active
+    final bool filled = isFilled ?? true;
+
+    /// Responsive fill color - defaults to grey when not focused
+    final Color resolvedFillColor =
+        fillColor ?? (filled ? defaultFillColor : Colors.transparent);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -148,8 +178,8 @@ class CustomTextField extends StatelessWidget {
             errorText: errorText,
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
-            fillColor: fillColor ?? Theme.of(context).colorScheme.surface,
-            filled: isFilled ?? false,
+            fillColor: resolvedFillColor,
+            filled: filled,
             hintText: hintText ?? '',
             errorStyle: errorStyle,
             hintStyle: hintStyle,

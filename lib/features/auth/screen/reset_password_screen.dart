@@ -12,6 +12,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:pixura_ai/features/auth/controller/auth_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:svg_flutter/svg.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({
@@ -126,8 +127,8 @@ class ResetPasswordScreenState extends State<ResetPasswordScreen>
                       // Logo stays fixed (Hero animation)
                       Hero(
                         tag: 'logo',
-                        child: Image.asset(
-                          AssetsConstants.appLogo,
+                        child: SvgPicture.asset(
+                          AssetsConstants.heartstyle,
                           width: 80.w,
                         ),
                       ),

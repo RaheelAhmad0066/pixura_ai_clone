@@ -209,7 +209,7 @@ class _SplashScreenState extends State<SplashScreen>
               child: Hero(
                 tag: 'logo',
                 child: Image(
-                  image: AssetImage(AssetsConstants.appLogo),
+                  image: AssetImage(AssetsConstants.heartstyle),
                   height: 100.h,
                   width: 150.w,
                 ),
