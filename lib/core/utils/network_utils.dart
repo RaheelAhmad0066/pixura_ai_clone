@@ -9,7 +9,7 @@ class NetworkUtils {
     try {
       final connectivityResult = await _connectivity.checkConnectivity();
 
-      if (connectivityResult == ConnectivityResult.none) {
+      if (connectivityResult.contains(ConnectivityResult.none)) {
         return false;
       }
 
@@ -28,12 +28,12 @@ class NetworkUtils {
   /// Check if current connection is mobile data
   static Future<bool> isMobileConnection() async {
     final connectivityResult = await _connectivity.checkConnectivity();
-    return connectivityResult == ConnectivityResult.mobile;
+    return connectivityResult.contains(ConnectivityResult.mobile);
   }
 
   /// Check if current connection is WiFi
   static Future<bool> isWiFiConnection() async {
     final connectivityResult = await _connectivity.checkConnectivity();
-    return connectivityResult == ConnectivityResult.wifi;
+    return connectivityResult.contains(ConnectivityResult.wifi);
   }
 }
