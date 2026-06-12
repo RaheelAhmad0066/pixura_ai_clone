@@ -124,7 +124,8 @@ class _SetupInputWidgetState extends State<SetupInputWidget> {
               controller: _controller,
               focusNode: _focusNode,
               textInputType: TextInputType.phone,
-              hintText: '+${_selectedCountry.phoneCode} 201-555-0123',
+              hintText: '201-555-0123',
+              fillColor: const Color(0xFFF2F2F2),
               textfieldBorderRadius: 16.r,
               prefixIcon: GestureDetector(
                 onTap: _openCountryPicker,
@@ -193,6 +194,7 @@ class _SetupInputWidgetState extends State<SetupInputWidget> {
               textInputType: TextInputType.emailAddress,
               hintText: 'hello@example.gmail.com',
               textfieldBorderRadius: 16.r,
+              fillColor: const Color(0xFFF2F2F2),
               prefixIcon: Container(
                 margin: EdgeInsets.only(
                   left: 8.w,
@@ -252,13 +254,14 @@ class _SetupInputWidgetState extends State<SetupInputWidget> {
                     provider.updateOtp('');
                     provider.nextStep();
                   }
-                : null,
+                : () {}, // keep empty to use isDisabled styling
+            isDisabled: !isValid,
             buttonColor: isValid
                 ? Colors.black
                 : const Color(0xFFD1D5DB), // Light grey disabled
             textColor: isValid
                 ? Colors.white
-                : const Color(0xFF9CA3AF), // Medium grey text when disabled
+                : const Color(0xFF9CA3AF),
             buttonBorderRadius: 16.r,
           ),
           SizedBox(height: 24.h),
