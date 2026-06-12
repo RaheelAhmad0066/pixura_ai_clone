@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pixura_ai/core/constants/app_constants.dart';
 import 'package:provider/provider.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:pixura_ai/core/constants/assets_constants.dart';
@@ -18,10 +19,9 @@ class SetupIntroWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 20.h),
           // Image Card
           Container(
-            height: 320.h,
+            height: 410.h,
             width: double.infinity,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24.r),
@@ -63,7 +63,7 @@ class SetupIntroWidget extends StatelessWidget {
             },
             buttonColor: Colors.black,
             textColor: Colors.white,
-            buttonBorderRadius: 16.r,
+            buttonBorderRadius: AppConstants.mediumRadius,
           ),
           SizedBox(height: 12.h),
           // Continue with Email
@@ -75,9 +75,9 @@ class SetupIntroWidget extends StatelessWidget {
             },
             buttonColor: Colors.grey.shade100,
             textColor: Colors.black,
-            buttonBorderRadius: 16.r,
+            buttonBorderRadius: AppConstants.mediumRadius,
           ),
-          SizedBox(height: 24.h),
+          SizedBox(height: 14.h),
           // Social buttons Row
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -92,7 +92,9 @@ class SetupIntroWidget extends StatelessWidget {
                   height: 52.h,
                   decoration: BoxDecoration(
                     color: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(16.r),
+                    borderRadius: BorderRadius.circular(
+                      AppConstants.mediumRadius,
+                    ),
                     border: Border.all(color: Colors.grey.shade200),
                   ),
                   child: const Center(
@@ -111,7 +113,9 @@ class SetupIntroWidget extends StatelessWidget {
                   height: 52.h,
                   decoration: BoxDecoration(
                     color: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(16.r),
+                    borderRadius: BorderRadius.circular(
+                      AppConstants.mediumRadius,
+                    ),
                     border: Border.all(color: Colors.grey.shade200),
                   ),
                   child: Center(

@@ -1,3 +1,4 @@
+import 'package:pixura_ai/core/constants/app_constants.dart';
 import 'package:pixura_ai/core/theme/app_colors.dart';
 import 'package:pixura_ai/core/theme/app_theme_extension.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +77,7 @@ class CustomTextField extends StatelessWidget {
         : AppColors.textFieldFillLight;
 
     /// Border radius - rounded rectangle
-    final double radius = textfieldBorderRadius ?? 16.r;
+    final double radius = textfieldBorderRadius ?? AppConstants.mediumRadius;
 
     /// Border definition
     final OutlineInputBorder border = OutlineInputBorder(
