@@ -18,6 +18,7 @@ class SetupInputWidget extends StatefulWidget {
 class _SetupInputWidgetState extends State<SetupInputWidget> {
   late TextEditingController _controller;
   final FocusNode _focusNode = FocusNode();
+  bool _isFocused = false;
 
   // Country picker state
   Country _selectedCountry = Country(
@@ -42,6 +43,12 @@ class _SetupInputWidgetState extends State<SetupInputWidget> {
           ? provider.phone
           : provider.email,
     );
+
+    _focusNode.addListener(() {
+      setState(() {
+        _isFocused = _focusNode.hasFocus;
+      });
+    });
   }
 
   @override
@@ -94,191 +101,185 @@ class _SetupInputWidgetState extends State<SetupInputWidget> {
     final isPhone = provider.authMode == AuthMode.phone;
     final bool isValid = provider.isInputValid;
 
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24.w),
+    return SingleChildScrollView(
+      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // ── Top content — centered vertically in upper half ──────────
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // Slanted Step Badge
-                const StepBadge(text: 'step 01'),
-                SizedBox(height: 18.h),
-
-                // Title
-                Text(
-                  isPhone ? "What's your number?" : "What's your email?",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 24.sp,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: -0.5,
-                  ),
-                ),
-                SizedBox(height: 24.h),
-
-                // TextField
-                if (isPhone)
-                  CustomTextField(
-                    controller: _controller,
-                    focusNode: _focusNode,
-                    textInputType: TextInputType.phone,
-                    hintText: '201-555-0123',
-                    fillColor: AppColors.textFieldFillLight,
-                    textfieldBorderRadius: 16.r,
-                    prefixIcon: GestureDetector(
-                      onTap: _openCountryPicker,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SizedBox(width: 12.w),
-                          Text(
-                            _selectedCountry.flagEmoji,
-                            style: TextStyle(fontSize: 16.sp),
-                          ),
-                          SizedBox(width: 6.w),
-                          Text(
-                            '+${_selectedCountry.phoneCode}',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(width: 6.w),
-                          Icon(
-                            Icons.keyboard_arrow_down_rounded,
-                            size: 16.sp,
-                            color: Colors.grey.shade500,
-                          ),
-                          SizedBox(width: 8.w),
-                          Container(
-                            height: 20.h,
-                            width: 1.w,
-                            color: Colors.grey.shade300,
-                          ),
-                        ],
-                      ),
-                    ),
-                    onChanged: (val) {
-                      provider.updatePhone(val ?? '');
-                      return null;
-                    },
-                  )
-                else
-                  CustomTextField(
-                    title: 'Email',
-                    controller: _controller,
-                    focusNode: _focusNode,
-                    textInputType: TextInputType.emailAddress,
-                    hintText: 'hello@example.gmail.com',
-                    textfieldBorderRadius: 16.r,
-                    fillColor: AppColors.textFieldFillLight,
-                    prefixIcon: Container(
-                      margin: EdgeInsets.only(
-                        left: 8.w,
-                        right: 12.w,
-                        top: 6.h,
-                        bottom: 6.h,
-                      ),
-                      padding: EdgeInsets.all(8.w),
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade100,
-                        borderRadius: BorderRadius.circular(8.r),
-                      ),
-                      child: Icon(
-                        Icons.mail_outline,
-                        color: Colors.grey.shade400,
-                        size: 20.sp,
-                      ),
-                    ),
-                    onChanged: (val) {
-                      provider.updateEmail(val ?? '');
-                      return null;
-                    },
-                  ),
-
-                SizedBox(height: 12.h),
-
-                // Sub-text
-                Text(
-                  'No spam. Just a quick verification',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.grey.shade500,
-                    fontSize: 12.sp,
-                  ),
-                ),
-              ],
+          SizedBox(height: 20.h),
+          // Reusable Slanted Step Badge
+          const StepBadge(text: 'step 01'),
+          SizedBox(height: 18.h),
+          // Centered Title
+          Text(
+            isPhone ? "What's your number?" : "What's your email?",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 24.sp,
+              fontWeight: FontWeight.bold,
+              letterSpacing: -0.5,
             ),
           ),
+          SizedBox(height: 24.h),
+          // CustomTextField with focus logic
+          if (isPhone)
+            CustomTextField(
+              controller: _controller,
+              focusNode: _focusNode,
+              textInputType: TextInputType.phone,
+              hintText: '201-555-0123',
+              fillColor: AppColors.textFieldFillLight,
+              textfieldBorderRadius: 16.r,
+              prefixIcon: GestureDetector(
+                onTap: _openCountryPicker,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(width: 12.w),
 
-          // ── Bottom — pinned button + disclaimer ──────────────────────
-          Column(
-            children: [
-              // Disclaimer text
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    style: TextStyle(
-                      color: Colors.grey.shade400,
-                      fontSize: 11.sp,
-                      height: 1.4,
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          _selectedCountry.flagEmoji,
+                          style: TextStyle(fontSize: 16.sp),
+                        ),
+                        SizedBox(width: 6.w),
+                        Text(
+                          '+${_selectedCountry.phoneCode}',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
-                    children: [
-                      const TextSpan(
-                        text: 'By tapping Continue, you are agreeing to\nour ',
-                      ),
-                      TextSpan(
-                        text: 'Terms of Service',
-                        style: TextStyle(
-                          color: Colors.grey.shade600,
-                          fontWeight: FontWeight.w600,
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                      const TextSpan(text: ' and '),
-                      TextSpan(
-                        text: 'Privacy Policy',
-                        style: TextStyle(
-                          color: Colors.grey.shade600,
-                          fontWeight: FontWeight.w600,
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                      const TextSpan(text: '.'),
-                    ],
-                  ),
+                    Container(
+                      height: 20.h,
+                      width: 1.w,
+                      color: Colors.grey.shade300,
+                    ),
+                    // SizedBox(width: 12.w),
+                  ],
                 ),
               ),
-              SizedBox(height: 12.h),
-
-              // Continue button
-              CustomButton(
-                text: 'Continue',
-                onPressed: isValid
-                    ? () {
-                        provider.updateOtp('');
-                        provider.nextStep();
-                      }
-                    : () {},
-                isDisabled: !isValid,
-                buttonColor:
-                    isValid ? AppColors.shade900 : AppColors.buttonDisabledBg,
-                textColor: isValid
-                    ? AppColors.shade100
-                    : AppColors.buttonDisabledText,
-                buttonBorderRadius: 16.r,
+              onChanged: (val) {
+                provider.updatePhone(val ?? '');
+                return null;
+              },
+            )
+          else
+            CustomTextField(
+              title: 'Email',
+              controller: _controller,
+              focusNode: _focusNode,
+              textInputType: TextInputType.emailAddress,
+              hintText: 'hello@example.gmail.com',
+              textfieldBorderRadius: 16.r,
+              fillColor: AppColors.textFieldFillLight,
+              prefixIcon: Container(
+                margin: EdgeInsets.only(
+                  left: 8.w,
+                  right: 12.w,
+                  top: 6.h,
+                  bottom: 6.h,
+                ),
+                padding: EdgeInsets.all(8.w),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                child: Icon(
+                  Icons.mail_outline,
+                  color: Colors.grey.shade400,
+                  size: 20.sp,
+                ),
               ),
-              SizedBox(height: 24.h),
-            ],
+              suffixIcon: Container(
+                margin: EdgeInsets.only(right: 8.w, top: 6.h, bottom: 6.h),
+                padding: EdgeInsets.all(8.w),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                child: Icon(
+                  Icons.check,
+                  color: Colors.transparent,
+                  size: 20.sp,
+                ),
+              ),
+              onChanged: (val) {
+                provider.updateEmail(val ?? '');
+                return null;
+              },
+            ),
+          SizedBox(height: 12.h),
+          // Centered Sub-description matching design wording
+          Text(
+            'No spam. Just a quick verification',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.grey.shade500, fontSize: 12.sp),
+          ),
+          SizedBox(height: 180.h),
+          // Centered Action Button
+          CustomButton(
+            text: 'Continue',
+            onPressed: isValid
+                ? () {
+                    provider.updateOtp('');
+                    provider.nextStep();
+                  }
+                : () {}, // keep empty to use isDisabled styling
+            isDisabled: !isValid,
+            buttonColor: isValid
+                ? AppColors.shade900
+                : AppColors.buttonDisabledBg,
+            textColor: isValid
+                ? AppColors.shade100
+                : AppColors.buttonDisabledText,
+            buttonBorderRadius: 16.r,
+          ),
+          SizedBox(height: 24.h),
+          // Centered Disclaimer text
+          Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  style: TextStyle(
+                    color: Colors.grey.shade400,
+                    fontSize: 11.sp,
+                    height: 1.4,
+                  ),
+                  children: [
+                    const TextSpan(
+                      text: 'By tapping Continue, you are agreeing to\nour ',
+                    ),
+                    TextSpan(
+                      text: 'Terms of Service',
+                      style: TextStyle(
+                        color: Colors.grey.shade600,
+                        fontWeight: FontWeight.w600,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                    const TextSpan(text: ' and '),
+                    TextSpan(
+                      text: 'Privacy Policy',
+                      style: TextStyle(
+                        color: Colors.grey.shade600,
+                        fontWeight: FontWeight.w600,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                    const TextSpan(text: '.'),
+                  ],
+                ),
+              ),
+            ),
           ),
         ],
       ),

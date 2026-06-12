@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show TextInputFormatter;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomTextField extends StatefulWidget {
   final String? hintText;
   final String? title;
   final bool isRequired;
@@ -68,21 +68,67 @@ class CustomTextField extends StatelessWidget {
   });
 
   @override
+  State<CustomTextField> createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  late FocusNode _internalFocusNode;
+  bool _isFocused = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Use provided focusNode or create an internal one
+    _internalFocusNode = widget.focusNode ?? FocusNode();
+    _internalFocusNode.addListener(_onFocusChange);
+  }
+
+  void _onFocusChange() {
+    setState(() {
+      _isFocused = _internalFocusNode.hasFocus;
+    });
+  }
+
+  @override
+  void dispose() {
+    _internalFocusNode.removeListener(_onFocusChange);
+    // Only dispose if internally created
+    if (widget.focusNode == null) {
+      _internalFocusNode.dispose();
+    }
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
-    /// Determine fill colors based on theme
+    /// Fill color: white when focused, default when idle
     final Color defaultFillColor = isDark
         ? AppColors.textFieldFillDark
         : AppColors.textFieldFillLight;
 
+    final bool filled = widget.isFilled ?? true;
+
+    final Color resolvedFillColor = _isFocused
+        ? Colors.white // active → white background
+        : (widget.fillColor ?? (filled ? defaultFillColor : Colors.transparent));
+
+    /// Text color: always black when focused so typing is visible
+    final Color textColor = _isFocused
+        ? Colors.black
+        : (widget.isEnabled ?? true
+            ? Theme.of(context).textTheme.titleMedium?.color ?? Colors.black
+            : context.appColors.grey);
+
     /// Border radius - rounded rectangle
-    final double radius = textfieldBorderRadius ?? AppConstants.mediumRadius;
+    final double radius =
+        widget.textfieldBorderRadius ?? AppConstants.mediumRadius;
 
     /// Border definition
     final OutlineInputBorder border = OutlineInputBorder(
       borderSide: BorderSide(
-        color: borderColor ?? Colors.transparent,
+        color: widget.borderColor ?? Colors.transparent,
         width: 1.0,
       ),
       borderRadius: BorderRadius.circular(radius),
@@ -90,14 +136,14 @@ class CustomTextField extends StatelessWidget {
 
     final OutlineInputBorder activeBorder = OutlineInputBorder(
       borderSide: BorderSide(
-        color: context.appColors.selectionHighlight, // Lemon focus color
+        color: context.appColors.selectionHighlight, // Lemon focus border
         width: 1.5,
       ),
       borderRadius: BorderRadius.circular(radius),
     );
 
     final OutlineInputBorder errorBorder = OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.red, width: 1.5),
+      borderSide: const BorderSide(color: Colors.red, width: 1.5),
       borderRadius: BorderRadius.circular(radius),
     );
 
@@ -105,40 +151,32 @@ class CustomTextField extends StatelessWidget {
         .copyWith(color: context.appColors.statusDelayedColor, height: 1.35);
 
     final TextStyle style = Theme.of(context).textTheme.titleMedium!.copyWith(
-      color: isEnabled ?? true
-          ? Theme.of(context).textTheme.titleMedium?.color
-          : context.appColors.grey,
-    );
+          color: textColor,
+        );
 
-    final TextStyle hintStyle = Theme.of(
-      context,
-    ).textTheme.titleMedium!.copyWith(color: context.appColors.grey);
+    final TextStyle hintStyle = Theme.of(context)
+        .textTheme
+        .titleMedium!
+        .copyWith(color: context.appColors.grey);
 
     final EdgeInsets contentPadding = EdgeInsets.symmetric(
       horizontal: 20.w,
       vertical: 14.h,
     );
 
-    /// Determine if filled mode is active
-    final bool filled = isFilled ?? true;
-
-    /// Responsive fill color - defaults to grey when not focused
-    final Color resolvedFillColor =
-        fillColor ?? (filled ? defaultFillColor : Colors.transparent);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (title != null) ...[
+        if (widget.title != null) ...[
           RichText(
             text: TextSpan(
-              text: title,
+              text: widget.title,
               style: TextStyle(
                 fontSize: 13.sp,
                 fontWeight: FontWeight.w600,
                 color: isDark ? Colors.grey.shade400 : Colors.grey.shade700,
               ),
-              children: isRequired
+              children: widget.isRequired
                   ? [
                       TextSpan(
                         text: '*',
@@ -154,33 +192,34 @@ class CustomTextField extends StatelessWidget {
         ],
 
         TextFormField(
-          initialValue: initialValue,
-          onTap: onTap,
-          onChanged: onChanged,
-          keyboardType: textInputType,
-          controller: controller,
-          enabled: isEnabled,
-          maxLines: maxLines,
-          focusNode: focusNode,
-          readOnly: isReadOnly,
-          validator: validator,
-          maxLength: maxLength,
-          minLines: minLines,
-          textInputAction: textInputAction,
-          autovalidateMode: autoValidateMode ?? AutovalidateMode.disabled,
-          obscureText: obscureText ?? false,
+          initialValue: widget.initialValue,
+          onTap: widget.onTap,
+          onChanged: widget.onChanged,
+          keyboardType: widget.textInputType,
+          controller: widget.controller,
+          enabled: widget.isEnabled,
+          maxLines: widget.maxLines,
+          focusNode: _internalFocusNode,
+          readOnly: widget.isReadOnly,
+          validator: widget.validator,
+          maxLength: widget.maxLength,
+          minLines: widget.minLines,
+          textInputAction: widget.textInputAction,
+          autovalidateMode:
+              widget.autoValidateMode ?? AutovalidateMode.disabled,
+          obscureText: widget.obscureText ?? false,
           style: style,
-          inputFormatters: inputFormatters,
+          inputFormatters: widget.inputFormatters,
           decoration: InputDecoration(
             contentPadding: contentPadding,
-            counterText: counterText,
+            counterText: widget.counterText,
             errorMaxLines: 2,
-            errorText: errorText,
-            prefixIcon: prefixIcon,
-            suffixIcon: suffixIcon,
+            errorText: widget.errorText,
+            prefixIcon: widget.prefixIcon,
+            suffixIcon: widget.suffixIcon,
             fillColor: resolvedFillColor,
             filled: filled,
-            hintText: hintText ?? '',
+            hintText: widget.hintText ?? '',
             errorStyle: errorStyle,
             hintStyle: hintStyle,
             labelStyle: Theme.of(context).textTheme.titleMedium,
