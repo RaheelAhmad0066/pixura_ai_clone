@@ -14,7 +14,9 @@ class SetupWelcomeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = context.watch<AccountSetupProvider>();
     final isPhone = provider.authMode == AuthMode.phone;
-    final logoAsset = isPhone ? AssetsConstants.heartstyle : AssetsConstants.styleSvg;
+    final logoAsset = isPhone
+        ? AssetsConstants.heartstyle
+        : AssetsConstants.styleSvg;
 
     return Center(
       child: Padding(
@@ -24,10 +26,7 @@ class SetupWelcomeWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // Top Logo Shape (Heart or S)
-            SvgPicture.asset(
-              logoAsset,
-              height: 100.h,
-            ),
+            Image.asset(logoAsset, height: 140.h),
             SizedBox(height: 32.h),
             // Slanted Step Badge
             const StepBadge(text: 'hurray!'),
@@ -41,14 +40,13 @@ class SetupWelcomeWidget extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 48.h),
+            SizedBox(height: 28.h),
             // Get Cracking button
             CustomButton(
-              text: 'Get Cracking   >',
+              text: 'Get Cracking ✨',
               onPressed: () => provider.completeSetup(context),
               buttonColor: Colors.black,
               textColor: Colors.white,
-              buttonBorderRadius: 16.r,
             ),
           ],
         ),

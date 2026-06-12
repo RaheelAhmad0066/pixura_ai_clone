@@ -165,8 +165,9 @@ class _SetupVerificationWidgetState extends State<SetupVerificationWidget> {
                       }
                     : () {},
                 isDisabled: !otpDone,
-                buttonColor:
-                    otpDone ? AppColors.shade900 : AppColors.buttonDisabledBg,
+                buttonColor: otpDone
+                    ? AppColors.shade900
+                    : AppColors.buttonDisabledBg,
                 textColor: AppColors.shade100, // always white
                 buttonBorderRadius: 16.r,
               ),
