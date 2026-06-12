@@ -1,12 +1,14 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pixura_ai/core/constants/assets_constants.dart';
 import 'package:provider/provider.dart';
 import 'package:pixura_ai/core/theme/app_colors.dart';
 import 'package:pixura_ai/features/auth/controller/account_setup_provider.dart';
 import 'package:pixura_ai/widgets/custom_button.dart';
 import 'package:pixura_ai/widgets/custom_textfield.dart';
 import 'package:pixura_ai/widgets/step_badge.dart';
+import 'package:svg_flutter/svg.dart';
 
 class SetupInputWidget extends StatefulWidget {
   const SetupInputWidget({super.key});
@@ -101,188 +103,182 @@ class _SetupInputWidgetState extends State<SetupInputWidget> {
     final isPhone = provider.authMode == AuthMode.phone;
     final bool isValid = provider.isInputValid;
 
-    return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 24.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 20.h),
-          // Reusable Slanted Step Badge
-          const StepBadge(text: 'step 01'),
-          SizedBox(height: 18.h),
-          // Centered Title
-          Text(
-            isPhone ? "What's your number?" : "What's your email?",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 24.sp,
-              fontWeight: FontWeight.bold,
-              letterSpacing: -0.5,
-            ),
-          ),
-          SizedBox(height: 24.h),
-          // CustomTextField with focus logic
-          if (isPhone)
-            CustomTextField(
-              controller: _controller,
-              focusNode: _focusNode,
-              textInputType: TextInputType.phone,
-              hintText: '201-555-0123',
-              fillColor: AppColors.textFieldFillLight,
-              textfieldBorderRadius: 16.r,
-              prefixIcon: GestureDetector(
-                onTap: _openCountryPicker,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(width: 12.w),
+          // ── Top content — vertically centered ───────────────────────
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // Slanted Step Badge
+                const StepBadge(text: 'step 01'),
+                SizedBox(height: 18.h),
 
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          _selectedCountry.flagEmoji,
-                          style: TextStyle(fontSize: 16.sp),
-                        ),
-                        SizedBox(width: 6.w),
-                        Text(
-                          '+${_selectedCountry.phoneCode}',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      height: 20.h,
-                      width: 1.w,
-                      color: Colors.grey.shade300,
-                    ),
-                    // SizedBox(width: 12.w),
-                  ],
-                ),
-              ),
-              onChanged: (val) {
-                provider.updatePhone(val ?? '');
-                return null;
-              },
-            )
-          else
-            CustomTextField(
-              title: 'Email',
-              controller: _controller,
-              focusNode: _focusNode,
-              textInputType: TextInputType.emailAddress,
-              hintText: 'hello@example.gmail.com',
-              textfieldBorderRadius: 16.r,
-              fillColor: AppColors.textFieldFillLight,
-              prefixIcon: Container(
-                margin: EdgeInsets.only(
-                  left: 8.w,
-                  right: 12.w,
-                  top: 6.h,
-                  bottom: 6.h,
-                ),
-                padding: EdgeInsets.all(8.w),
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-                child: Icon(
-                  Icons.mail_outline,
-                  color: Colors.grey.shade400,
-                  size: 20.sp,
-                ),
-              ),
-              suffixIcon: Container(
-                margin: EdgeInsets.only(right: 8.w, top: 6.h, bottom: 6.h),
-                padding: EdgeInsets.all(8.w),
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-                child: Icon(
-                  Icons.check,
-                  color: Colors.transparent,
-                  size: 20.sp,
-                ),
-              ),
-              onChanged: (val) {
-                provider.updateEmail(val ?? '');
-                return null;
-              },
-            ),
-          SizedBox(height: 12.h),
-          // Centered Sub-description matching design wording
-          Text(
-            'No spam. Just a quick verification',
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.grey.shade500, fontSize: 12.sp),
-          ),
-          SizedBox(height: 180.h),
-          // Centered Action Button
-          CustomButton(
-            text: 'Continue',
-            onPressed: isValid
-                ? () {
-                    provider.updateOtp('');
-                    provider.nextStep();
-                  }
-                : () {}, // keep empty to use isDisabled styling
-            isDisabled: !isValid,
-            buttonColor: isValid
-                ? AppColors.shade900
-                : AppColors.buttonDisabledBg,
-            textColor: isValid
-                ? AppColors.shade100
-                : AppColors.buttonDisabledText,
-            buttonBorderRadius: 16.r,
-          ),
-          SizedBox(height: 24.h),
-          // Centered Disclaimer text
-          Center(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
+                // Title
+                Text(
+                  isPhone ? "What's your number?" : "What's your email?",
+                  textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.grey.shade400,
-                    fontSize: 11.sp,
-                    height: 1.4,
+                    color: Colors.black,
+                    fontSize: 24.sp,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: -0.5,
                   ),
-                  children: [
-                    const TextSpan(
-                      text: 'By tapping Continue, you are agreeing to\nour ',
-                    ),
-                    TextSpan(
-                      text: 'Terms of Service',
-                      style: TextStyle(
-                        color: Colors.grey.shade600,
-                        fontWeight: FontWeight.w600,
-                        decoration: TextDecoration.underline,
+                ),
+                SizedBox(height: 24.h),
+
+                // TextField
+                if (isPhone)
+                  CustomTextField(
+                    controller: _controller,
+                    focusNode: _focusNode,
+                    textInputType: TextInputType.phone,
+                    hintText: '201-555-0123',
+                    fillColor: AppColors.textFieldFillLight,
+                    textfieldBorderRadius: 16.r,
+                    prefixIcon: GestureDetector(
+                      onTap: _openCountryPicker,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(width: 12.w),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                _selectedCountry.flagEmoji,
+                                style: TextStyle(fontSize: 16.sp),
+                              ),
+                              SizedBox(width: 6.w),
+                              Text(
+                                '+${_selectedCountry.phoneCode}',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            height: 20.h,
+                            width: 1.w,
+                            color: Colors.grey.shade300,
+                          ),
+                        ],
                       ),
                     ),
-                    const TextSpan(text: ' and '),
-                    TextSpan(
-                      text: 'Privacy Policy',
-                      style: TextStyle(
-                        color: Colors.grey.shade600,
-                        fontWeight: FontWeight.w600,
-                        decoration: TextDecoration.underline,
+                    onChanged: (val) {
+                      provider.updatePhone(val ?? '');
+                      return null;
+                    },
+                  )
+                else
+                  CustomTextField(
+                    title: 'Email',
+                    controller: _controller,
+                    focusNode: _focusNode,
+                    textInputType: TextInputType.emailAddress,
+                    hintText: 'hello@example.gmail.com',
+                    textfieldBorderRadius: 16.r,
+                    fillColor: AppColors.textFieldFillLight,
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.all(14.0),
+                      child: SvgPicture.asset(
+                        AssetsConstants.mail,
+                        fit: BoxFit.contain,
                       ),
                     ),
-                    const TextSpan(text: '.'),
-                  ],
+                    onChanged: (val) {
+                      provider.updateEmail(val ?? '');
+                      return null;
+                    },
+                  ),
+
+                SizedBox(height: 12.h),
+
+                // Sub-text
+                Text(
+                  'No spam. Just a quick verification',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.grey.shade500,
+                    fontSize: 12.sp,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // ── Bottom — pinned disclaimer + button ──────────────────────
+          Column(
+            children: [
+              // Disclaimer
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    style: TextStyle(
+                      color: Colors.grey.shade400,
+                      fontSize: 11.sp,
+                      height: 1.4,
+                    ),
+                    children: [
+                      const TextSpan(
+                        text: 'By tapping Continue, you are agreeing to\nour ',
+                      ),
+                      TextSpan(
+                        text: 'Terms of Service',
+                        style: TextStyle(
+                          color: Colors.grey.shade600,
+                          fontWeight: FontWeight.w600,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                      const TextSpan(text: ' and '),
+                      TextSpan(
+                        text: 'Privacy Policy',
+                        style: TextStyle(
+                          color: Colors.grey.shade600,
+                          fontWeight: FontWeight.w600,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                      const TextSpan(text: '.'),
+                    ],
+                  ),
                 ),
               ),
-            ),
+              SizedBox(height: 12.h),
+
+              // Continue button
+              CustomButton(
+                text: 'Continue',
+                onPressed: isValid
+                    ? () {
+                        provider.updateOtp('');
+                        provider.nextStep();
+                      }
+                    : () {},
+                isDisabled: !isValid,
+                buttonColor:
+                    isValid ? AppColors.shade900 : AppColors.buttonDisabledBg,
+                textColor: isValid
+                    ? AppColors.shade100
+                    : AppColors.buttonDisabledText,
+                buttonBorderRadius: 16.r,
+              ),
+              SizedBox(height: 24.h),
+            ],
           ),
         ],
       ),
     );
   }
 }
+
