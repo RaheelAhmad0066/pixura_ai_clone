@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
                   theme: AppTheme.lightTheme,
                   darkTheme: AppTheme.darkTheme,
                   onGenerateRoute: router.generateRoute,
-                  initialRoute: AppRoutes.splash,
+                  initialRoute: AppRoutes.onboarding,
                   builder: (context, child) => GestureDetector(
                     onTap: () {
                       FocusManager.instance.primaryFocus?.unfocus();

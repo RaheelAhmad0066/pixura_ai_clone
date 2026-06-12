@@ -5,10 +5,8 @@ import 'package:pixura_ai/core/services/secure_storage_service.dart';
 import 'package:svg_flutter/svg.dart';
 import 'package:pixura_ai/core/utils/debug_point.dart';
 import 'package:pixura_ai/features/auth/controller/auth_provider.dart';
-import 'package:pixura_ai/features/auth/screen/login_screen.dart';
-// import 'package:pixura_ai/features/onboarding/screen/onboarding_screen.dart';
-// import 'package:pixura_ai/features/settings/controller/profile_provider.dart';
 import 'package:pixura_ai/features/tab/screen/tab_screen.dart';
+import 'package:pixura_ai/core/router/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +21,10 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late Animation<Offset> _logoAnimation;
+  late Animation<Offset> _logoSlideAnimation;
+  late Animation<double> _logoScaleAnimation;
+  late Animation<double> _taglineFadeAnimation;
+  late Animation<double> _subtitleFadeAnimation;
 
   @override
   void initState() {
@@ -31,24 +32,42 @@ class _SplashScreenState extends State<SplashScreen>
 
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1500),
+      duration: const Duration(milliseconds: 2000),
     );
 
-    // Logo animation - starts from top and moves to center
-    _logoAnimation = Tween<Offset>(
-      begin: const Offset(0, -30), // Start above the screen
-      end: Offset.zero, // End at center
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutQuart));
+    // Logo slides from top and scales in
+    _logoSlideAnimation = Tween<Offset>(
+      begin: const Offset(0, -2.5),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutBack));
+
+    _logoScaleAnimation = Tween<double>(
+      begin: 0.3,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
+
+    // Tagline fades in after logo
+    _taglineFadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.5, 0.8, curve: Curves.easeIn),
+      ),
+    );
+
+    // Subtitle fades in later
+    _subtitleFadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.65, 0.9, curve: Curves.easeIn),
+      ),
+    );
 
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        // Wait for 500ms before starting the transition
-        Future.delayed(const Duration(milliseconds: 500), () async {
+        Future.delayed(const Duration(milliseconds: 800), () async {
           if (!mounted) return;
 
-          // Capture providers synchronously before any await gap
           final authProvider = context.read<AuthProvider>();
-          // final profileProvider = context.read<ProfileProvider>();
 
           bool hasSeenOnboarding = await secureStorage.getBoolAsync(
             AppString.hasSeenOnboarding,
@@ -56,9 +75,7 @@ class _SplashScreenState extends State<SplashScreen>
 
           if (!hasSeenOnboarding) {
             if (!mounted) return;
-            // Navigator.of(context).pushReplacement(
-            //   MaterialPageRoute(builder: (context) => const OnboardingScreen()),
-            // );
+            Navigator.of(context).pushReplacementNamed(AppRoutes.onboarding);
             return;
           }
 
@@ -69,42 +86,13 @@ class _SplashScreenState extends State<SplashScreen>
             AppString.isLoggedOut,
           );
 
-          // Check if user has token but is logged out
           if (accessToken.isNotEmpty && isLoggedOut) {
-            // User was logged out, go to welcome screen
             if (!mounted) return;
-            Navigator.of(context).pushReplacement(
-              PageRouteBuilder(
-                pageBuilder: (context, animation, secondaryAnimation) =>
-                    const LoginScreen(),
-                transitionDuration: const Duration(milliseconds: 800),
-                transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) {
-                      return FadeTransition(
-                        opacity: animation,
-                        child: SlideTransition(
-                          position:
-                              Tween<Offset>(
-                                begin: const Offset(0, 0.3),
-                                end: Offset.zero,
-                              ).animate(
-                                CurvedAnimation(
-                                  parent: animation,
-                                  curve: Curves.easeOutQuart,
-                                ),
-                              ),
-                          child: child,
-                        ),
-                      );
-                    },
-              ),
-            );
+            Navigator.of(context).pushReplacementNamed(AppRoutes.login);
             return;
           }
 
           if (accessToken.isNotEmpty && !isLoggedOut) {
-            // Load and sync user, then navigate
-            // Add timeout to ensure navigation happens even if sync takes too long
             try {
               await authProvider.loadAndSyncUser().timeout(
                 const Duration(seconds: 5),
@@ -114,20 +102,12 @@ class _SplashScreenState extends State<SplashScreen>
                   );
                 },
               );
-              // Also refresh the ProfileProvider so UI reflects latest data
-              // if (mounted) {
-              //   await profileProvider.fetchProfile().timeout(
-              //     const Duration(seconds: 5),
-              //     onTimeout: () {},
-              //   );
-              // }
             } catch (e) {
               DebugPoint.error('Error in loadAndSyncUser: $e');
             }
 
             if (!mounted) return;
 
-            // Session is still valid, go directly to target screen
             Navigator.of(context).pushReplacement(
               PageRouteBuilder(
                 pageBuilder: (context, animation, secondaryAnimation) =>
@@ -156,33 +136,7 @@ class _SplashScreenState extends State<SplashScreen>
             );
           } else {
             if (!mounted) return;
-
-            Navigator.of(context).pushReplacement(
-              PageRouteBuilder(
-                pageBuilder: (context, animation, secondaryAnimation) =>
-                    const LoginScreen(),
-                transitionDuration: const Duration(milliseconds: 800),
-                transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) {
-                      return FadeTransition(
-                        opacity: animation,
-                        child: SlideTransition(
-                          position:
-                              Tween<Offset>(
-                                begin: const Offset(0, 0.3),
-                                end: Offset.zero,
-                              ).animate(
-                                CurvedAnimation(
-                                  parent: animation,
-                                  curve: Curves.easeOutQuart,
-                                ),
-                              ),
-                          child: child,
-                        ),
-                      );
-                    },
-              ),
-            );
+            Navigator.of(context).pushReplacementNamed(AppRoutes.login);
           }
         });
       }
@@ -199,20 +153,84 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      body: Center(
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              theme.colorScheme.primary.withValues(alpha: 0.08),
+              theme.colorScheme.surface,
+              theme.colorScheme.surface,
+            ],
+          ),
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Animated logo (from top to center)
+            const Spacer(flex: 3),
+
+            // Animated logo
             SlideTransition(
-              position: _logoAnimation,
-              child: Hero(
-                tag: 'logo',
-                child: SvgPicture.asset(
-                  AssetsConstants.heartstyle,
-                  height: 100.h,
-                  width: 150.w,
+              position: _logoSlideAnimation,
+              child: ScaleTransition(
+                scale: _logoScaleAnimation,
+                child: Hero(
+                  tag: 'logo',
+                  child: SvgPicture.asset(
+                    AssetsConstants.heartstyle,
+                    height: 100.h,
+                    width: 150.w,
+                  ),
+                ),
+              ),
+            ),
+
+            SizedBox(height: 24.h),
+
+            // App name
+            FadeTransition(
+              opacity: _taglineFadeAnimation,
+              child: Text(
+                'Pixura AI',
+                style: theme.textTheme.headlineLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 32.sp,
+                  letterSpacing: 1.2,
+                ),
+              ),
+            ),
+
+            SizedBox(height: 8.h),
+
+            // Subtitle
+            FadeTransition(
+              opacity: _subtitleFadeAnimation,
+              child: Text(
+                'Create. Post. Inspire.',
+                style: theme.textTheme.titleMedium?.copyWith(
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+                  letterSpacing: 2.0,
+                ),
+              ),
+            ),
+
+            const Spacer(flex: 4),
+
+            // Loading indicator at bottom
+            Padding(
+              padding: EdgeInsets.only(bottom: 48.h),
+              child: SizedBox(
+                width: 24.w,
+                height: 24.w,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2.5,
+                  color: theme.colorScheme.primary.withValues(alpha: 0.4),
                 ),
               ),
             ),

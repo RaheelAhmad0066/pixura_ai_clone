@@ -61,8 +61,7 @@ class CustomButton extends StatelessWidget {
       color: isOutlineButton
           ? null
           : (isDisabled)
-          // : (isDisabled || isLoading)
-          ? Color(0xff121212).withValues(alpha: 0.5)
+          ? const Color(0xFF858585)
           : buttonColor ?? AppColors.shade900,
       elevation: 0.0,
       onPressed: (isDisabled)
@@ -113,7 +112,7 @@ class CustomButton extends StatelessWidget {
                         style: Theme.of(context).textTheme.displaySmall!
                             .copyWith(
                               color: isDisabled && !isOutlineButton
-                                  ? AppColors.shade100.withValues(alpha: 0.5)
+                                  ? AppColors.shade100
                                   : textColor ?? AppColors.shade100,
                               fontSize: textFontSize ?? 14.sp,
                             ),

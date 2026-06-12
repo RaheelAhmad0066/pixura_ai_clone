@@ -2,7 +2,7 @@ import 'package:pixura_ai/features/tab/controller/tabs_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:pixura_ai/features/auth/screen/auth_success_screen.dart';
+
 import 'package:liquid_glass_widgets/liquid_glass_widgets.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
@@ -43,7 +43,7 @@ class _TabScreenState extends State<TabScreen> with WidgetsBindingObserver {
   }
 
   final List<Widget> _screens = [
-    const AuthSuccessScreen(),
+    // const AuthSuccessScreen(),
     const Scaffold(body: Center(child: Text('Schedule Tab'))),
     const Scaffold(body: Center(child: Text('Accounts Tab'))),
     const Scaffold(body: Center(child: Text('Gallery Tab'))),

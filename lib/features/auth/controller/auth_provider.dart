@@ -6,13 +6,11 @@ import 'package:pixura_ai/core/services/secure_storage_service.dart';
 import 'package:pixura_ai/core/utils/debug_point.dart';
 import 'package:pixura_ai/core/utils/toast_utils.dart';
 import 'package:pixura_ai/features/auth/model/user_model.dart';
-import 'package:pixura_ai/features/auth/screen/login_screen.dart';
+import 'package:pixura_ai/core/router/routes.dart';
 import 'package:pixura_ai/features/auth/repository/profile_repository.dart';
 import 'package:pixura_ai/core/services/clerk_service.dart';
 import 'package:flutter/material.dart';
 import 'package:clerk_auth/clerk_auth.dart';
-import 'package:nb_utils/nb_utils.dart'
-    show PageRouteAnimation, WidgetExtension;
 
 class AuthProvider extends ChangeNotifier {
   final ClerkService _clerkService = locator<ClerkService>();
@@ -127,10 +125,9 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
 
     if (context.mounted) {
-      LoginScreen().launch(
-        context,
-        isNewTask: true,
-        pageRouteAnimation: PageRouteAnimation.Fade,
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        AppRoutes.login,
+        (route) => false,
       );
     }
   }

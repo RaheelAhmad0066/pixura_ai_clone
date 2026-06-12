@@ -72,10 +72,10 @@ class CustomTextField extends StatelessWidget {
     /// Determine fill colors based on theme
     final Color defaultFillColor = isDark
         ? const Color(0xFF1E1E1E) // Dark grey fill for dark mode
-        : const Color(0xFFF3F4F6); // Light grey fill for light mode
+        : const Color(0xFFF2F2F2); // Light grey fill for light mode (matching mockup exactly)
 
-    /// Border radius - pill shaped
-    final double radius = textfieldBorderRadius ?? 30.r;
+    /// Border radius - rounded rectangle
+    final double radius = textfieldBorderRadius ?? 16.r;
 
     /// Border definition
     final OutlineInputBorder border = OutlineInputBorder(
@@ -88,7 +88,7 @@ class CustomTextField extends StatelessWidget {
 
     final OutlineInputBorder activeBorder = OutlineInputBorder(
       borderSide: BorderSide(
-        color: context.appColors.selectionHighlight, // Amber/yellow focus color
+        color: context.appColors.selectionHighlight, // Lemon focus color
         width: 1.5,
       ),
       borderRadius: BorderRadius.circular(radius),
@@ -96,8 +96,8 @@ class CustomTextField extends StatelessWidget {
 
     final OutlineInputBorder errorBorder = OutlineInputBorder(
       borderSide: BorderSide(
-        color: context.appColors.statusDelayedColor,
-        width: 1.0,
+        color: Colors.red,
+        width: 1.5,
       ),
       borderRadius: BorderRadius.circular(radius),
     );
@@ -134,11 +134,11 @@ class CustomTextField extends StatelessWidget {
           RichText(
             text: TextSpan(
               text: title,
-              style: !isEditProfile
-                  ? Theme.of(context).textTheme.headlineSmall
-                  : Theme.of(
-                      context,
-                    ).textTheme.titleSmall?.copyWith(fontSize: 13.sp),
+              style: TextStyle(
+                fontSize: 13.sp,
+                fontWeight: FontWeight.w600,
+                color: isDark ? Colors.grey.shade400 : Colors.grey.shade700,
+              ),
               children: isRequired
                   ? [
                       TextSpan(
