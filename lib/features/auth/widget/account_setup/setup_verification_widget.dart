@@ -109,7 +109,17 @@ class _SetupVerificationWidgetState extends State<SetupVerificationWidget> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(12.r),
-                      border: Border.all(color: Colors.black, width: 1.5),
+                      border: Border.all(
+                        color: AppColors.lemon, // lemon yellow border
+                        width: 2.5,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.lemon.withValues(alpha: 0.45),
+                          blurRadius: 12,
+                          spreadRadius: 2,
+                        ),
+                      ],
                     ),
                   ),
                   submittedPinTheme: PinTheme(
