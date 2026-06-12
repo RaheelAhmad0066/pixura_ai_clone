@@ -2,6 +2,7 @@ import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:pixura_ai/core/theme/app_colors.dart';
 import 'package:pixura_ai/features/auth/controller/account_setup_provider.dart';
 import 'package:pixura_ai/widgets/custom_button.dart';
 import 'package:pixura_ai/widgets/custom_textfield.dart';
@@ -72,7 +73,7 @@ class _SetupInputWidgetState extends State<SetupInputWidget> {
           hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 14.sp),
           prefixIcon: Icon(Icons.search, color: Colors.grey.shade500),
           filled: true,
-          fillColor: Colors.grey.shade100,
+          fillColor: AppColors.textFieldFillLight,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12.r),
             borderSide: BorderSide.none,
@@ -125,7 +126,7 @@ class _SetupInputWidgetState extends State<SetupInputWidget> {
               focusNode: _focusNode,
               textInputType: TextInputType.phone,
               hintText: '201-555-0123',
-              fillColor: const Color(0xFFF2F2F2),
+              fillColor: AppColors.textFieldFillLight,
               textfieldBorderRadius: 16.r,
               prefixIcon: GestureDetector(
                 onTap: _openCountryPicker,
@@ -194,7 +195,7 @@ class _SetupInputWidgetState extends State<SetupInputWidget> {
               textInputType: TextInputType.emailAddress,
               hintText: 'hello@example.gmail.com',
               textfieldBorderRadius: 16.r,
-              fillColor: const Color(0xFFF2F2F2),
+              fillColor: AppColors.textFieldFillLight,
               prefixIcon: Container(
                 margin: EdgeInsets.only(
                   left: 8.w,
@@ -257,11 +258,11 @@ class _SetupInputWidgetState extends State<SetupInputWidget> {
                 : () {}, // keep empty to use isDisabled styling
             isDisabled: !isValid,
             buttonColor: isValid
-                ? Colors.black
-                : const Color(0xFFD1D5DB), // Light grey disabled
+                ? AppColors.shade900
+                : AppColors.buttonDisabledBg,
             textColor: isValid
-                ? Colors.white
-                : const Color(0xFF9CA3AF),
+                ? AppColors.shade100
+                : AppColors.buttonDisabledText,
             buttonBorderRadius: 16.r,
           ),
           SizedBox(height: 24.h),

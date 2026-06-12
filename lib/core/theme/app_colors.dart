@@ -46,4 +46,19 @@ class AppColors {
     blurRadius: 30,
     offset: Offset(0, 12),
   );
+
+  // ── TextField ────────────────────────────────────────────────
+  /// Default fill for light-mode text fields
+  static const textFieldFillLight = Color(0xFFEDEBEE);
+
+  /// Default fill for dark-mode text fields
+  static const textFieldFillDark = Color(0xFF1E1E1E);
+
+  // ── Button states ────────────────────────────────────────────
+  /// Disabled button background
+  static const buttonDisabledBg = Color(0xFFD1D5DB);
+
+  /// Disabled button text / icon color
+  static const buttonDisabledText = Color(0xFF9CA3AF);
 }
+
