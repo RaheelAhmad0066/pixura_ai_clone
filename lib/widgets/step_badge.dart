@@ -16,8 +16,11 @@ class StepBadge extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 6.h),
         decoration: BoxDecoration(
-          color: color ?? AppColors.lemon, // Use provided color or default lemon
-          borderRadius: BorderRadius.circular(8.r), // Rounded rect matching mockup
+          color:
+              color ?? AppColors.lemon, // Use provided color or default lemon
+          borderRadius: BorderRadius.circular(
+            8.r,
+          ), // Rounded rect matching mockup
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.04),
@@ -29,9 +32,9 @@ class StepBadge extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-            color: Colors.black,
+            color: Color(0xff4D5745),
             fontSize: 12.sp,
-            fontWeight: FontWeight.w900, // Thick bold text
+            fontWeight: FontWeight.w800, // Thick bold text
             letterSpacing: -0.2,
           ),
         ),

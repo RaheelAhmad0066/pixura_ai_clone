@@ -1,3 +1,4 @@
+import 'package:pixura_ai/core/constants/app_constants.dart';
 import 'package:pixura_ai/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -54,14 +55,16 @@ class CustomButton extends StatelessWidget {
                   ? buttonColor ?? Theme.of(context).textTheme.bodyLarge!.color!
                   : Colors.transparent),
         ),
-        borderRadius: BorderRadius.circular(buttonBorderRadius ?? 14.r),
+        borderRadius: BorderRadius.circular(
+          buttonBorderRadius ?? AppConstants.mediumRadius,
+        ),
       ),
       height: height,
 
       color: isOutlineButton
           ? null
           : (isDisabled)
-          ? (buttonColor ?? AppColors.buttonDisabledBg)
+          ? (buttonColor ?? const Color.fromARGB(255, 154, 154, 158))
           : buttonColor ?? AppColors.shade900,
       elevation: 0.0,
       onPressed: (isDisabled)

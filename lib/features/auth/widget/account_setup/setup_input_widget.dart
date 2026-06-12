@@ -139,7 +139,6 @@ class _SetupInputWidgetState extends State<SetupInputWidget> {
                     textInputType: TextInputType.phone,
                     hintText: '201-555-0123',
                     fillColor: AppColors.textFieldFillLight,
-                    textfieldBorderRadius: 16.r,
                     prefixIcon: GestureDetector(
                       onTap: _openCountryPicker,
                       child: Row(
@@ -184,13 +183,18 @@ class _SetupInputWidgetState extends State<SetupInputWidget> {
                     focusNode: _focusNode,
                     textInputType: TextInputType.emailAddress,
                     hintText: 'hello@example.gmail.com',
-                    textfieldBorderRadius: 16.r,
                     fillColor: AppColors.textFieldFillLight,
                     prefixIcon: Padding(
-                      padding: const EdgeInsets.all(14.0),
+                      padding: const EdgeInsets.all(10.0),
                       child: SvgPicture.asset(
                         AssetsConstants.mail,
                         fit: BoxFit.contain,
+                        colorFilter: ColorFilter.mode(
+                          _focusNode.hasFocus
+                              ? Colors.black
+                              : Color(0xff8C919E),
+                          BlendMode.srcIn,
+                        ),
                       ),
                     ),
                     onChanged: (val) {
@@ -202,12 +206,12 @@ class _SetupInputWidgetState extends State<SetupInputWidget> {
                 SizedBox(height: 12.h),
 
                 // Sub-text
-                Text(
-                  'No spam. Just a quick verification',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.grey.shade500,
-                    fontSize: 12.sp,
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'No spam. Just a quick verification',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Color(0xff8C919E), fontSize: 12.sp),
                   ),
                 ),
               ],
@@ -266,12 +270,12 @@ class _SetupInputWidgetState extends State<SetupInputWidget> {
                       }
                     : () {},
                 isDisabled: !isValid,
-                buttonColor:
-                    isValid ? AppColors.shade900 : AppColors.buttonDisabledBg,
+                buttonColor: isValid
+                    ? AppColors.shade900
+                    : AppColors.buttonDisabledBg,
                 textColor: isValid
                     ? AppColors.shade100
                     : AppColors.buttonDisabledText,
-                buttonBorderRadius: 16.r,
               ),
               SizedBox(height: 24.h),
             ],
@@ -281,4 +285,3 @@ class _SetupInputWidgetState extends State<SetupInputWidget> {
     );
   }
 }
-

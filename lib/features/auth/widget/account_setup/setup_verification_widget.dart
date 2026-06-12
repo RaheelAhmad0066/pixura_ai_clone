@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
-import 'package:svg_flutter/svg.dart';
 import 'package:pixura_ai/core/constants/assets_constants.dart';
 import 'package:pixura_ai/features/auth/controller/account_setup_provider.dart';
 import 'package:pixura_ai/widgets/custom_button.dart';
@@ -12,7 +11,8 @@ class SetupVerificationWidget extends StatefulWidget {
   const SetupVerificationWidget({super.key});
 
   @override
-  State<SetupVerificationWidget> createState() => _SetupVerificationWidgetState();
+  State<SetupVerificationWidget> createState() =>
+      _SetupVerificationWidgetState();
 }
 
 class _SetupVerificationWidgetState extends State<SetupVerificationWidget> {
@@ -35,7 +35,9 @@ class _SetupVerificationWidgetState extends State<SetupVerificationWidget> {
   Widget build(BuildContext context) {
     final provider = context.watch<AccountSetupProvider>();
     final isPhone = provider.authMode == AuthMode.phone;
-    final logoAsset = isPhone ? AssetsConstants.heartstyle : AssetsConstants.styleSvg;
+    final logoAsset = isPhone
+        ? AssetsConstants.heartstyle
+        : AssetsConstants.styleSvg;
 
     return SingleChildScrollView(
       padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
@@ -44,10 +46,7 @@ class _SetupVerificationWidgetState extends State<SetupVerificationWidget> {
         children: [
           SizedBox(height: 20.h),
           // Top Logo Shape (Heart or S)
-          SvgPicture.asset(
-            logoAsset,
-            height: 90.h,
-          ),
+          Image.asset(logoAsset, height: 90.h),
           SizedBox(height: 24.h),
           // Slanted Step Badge
           const StepBadge(text: 'step 02'),
@@ -99,10 +98,7 @@ class _SetupVerificationWidgetState extends State<SetupVerificationWidget> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(12.r),
-                border: Border.all(
-                  color: Colors.black,
-                  width: 1.5,
-                ),
+                border: Border.all(color: Colors.black, width: 1.5),
               ),
             ),
           ),
@@ -126,8 +122,12 @@ class _SetupVerificationWidgetState extends State<SetupVerificationWidget> {
                     provider.nextStep();
                   }
                 : null,
-            buttonColor: provider.isOtpComplete ? Colors.black : Colors.grey.shade300,
-            textColor: provider.isOtpComplete ? Colors.white : Colors.grey.shade600,
+            buttonColor: provider.isOtpComplete
+                ? Colors.black
+                : Colors.grey.shade300,
+            textColor: provider.isOtpComplete
+                ? Colors.white
+                : Colors.grey.shade600,
             buttonBorderRadius: 16.r,
           ),
         ],

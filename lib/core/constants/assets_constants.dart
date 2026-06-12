@@ -23,7 +23,7 @@ class AssetsConstants {
   static const String grid = 'assets/grid.svg';
   static const String headphone = 'assets/headphone.svg';
   static const String heart = 'assets/heart.svg';
-  static const String heartstyle = 'assets/heartstyle.svg';
+  static const String heartstyle = 'assets/heartstyle.png';
   static const String illustration1 = 'assets/illustration1.jpg';
   static const String illustration10 = 'assets/illustration10.jpg';
   static const String illustration11 = 'assets/illustration11.jpg';
@@ -65,7 +65,7 @@ class AssetsConstants {
   static const String shield = 'assets/shield.svg';
   static const String socialMedia = 'assets/social media.svg';
   static const String stack = 'assets/stack.svg';
-  static const String styleSvg = 'assets/style.svg';
+  static const String styleSvg = 'assets/style.png';
   static const String sun = 'assets/sun.svg';
   static const String visa = 'assets/visa.svg.svg';
   static const String wip = 'assets/wip.svg';
